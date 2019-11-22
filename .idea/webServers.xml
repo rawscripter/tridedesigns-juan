@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ee6f4668-996a-4b4f-a931-71e4d708a86d" name="rawscripter@tridedesigns.com" url="http://ftp.tridedesigns.com">
+        <fileTransfer host="ftp.tridedesigns.com" port="21" rootFolder="/juan.tridedesigns.com">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,99 @@
+@extends('layouts.admin.layout')
+@section('head')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+@endsection
+
+@section('content')
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                Mixs
+            </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">All Mixs</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="card">
+            <div class="card-body">
+
+                @if(Session::has('success'))
+                    <div class="row">
+                        <div class="col-md-12 m-auto">
+                            <p class="alert alert-success">{{ Session::get('success') }}</p>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="create-btn text-right">
+                            <a href="{{route('mix.create')}}"
+                               class="btn btn-primary">Add New Mix</a><br>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-5">
+
+                        <div id="order-listing_wrapper"
+                             class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                            <table class="table  no-footer" role="grid"
+                                   aria-describedby="order-listing_info">
+                                <thead>
+                                <tr role="row">
+                                    <th>Sl.</th>
+                                    <th>Mix Name</th>
+                                    <th>Added By</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php
+                                    $i = 1;
+                                @endphp
+
+                                @foreach($mixs as $mix)
+                                    <tr>
+                                        <td>{{$i++}}</td>
+                                        <td>{{$mix->name}}</td>
+                                        <td>{{$mix->user->name}}</td>
+                                        <td><a href="{{route('mix.edit',$mix->id)}}"
+                                               class="btn btn-sm btn-primary rounded-0">Edit</a></td>
+
+                                        <td>
+                                            <form method="POST"
+                                                  action="{{route('mix.destroy',$mix->id)}}">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <input onClick="return confirm('Are you sure you want to delete the Video?')"
+                                                       type="submit" class="btn btn-sm  rounded-0 btn-danger"
+                                                       value="Delete">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('footer')
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('table').DataTable({
+                "order": [[0, "desc"]]
+            });
+        });
+    </script>
+@endsection
